@@ -1,24 +1,24 @@
 html 
     head 
-    title= pageTitle
+        title= pageTitle
 
- body
- nav
- ul
- li
- a(href="/") Inicio
- if user
- li
- a(href="/alumnos") Alumnos
- li
- a(href="/asignaturas") Asignaturas
- li
- a(href="/logout") Cerrar sesión
- else
- li
- a(href="/login") Iniciar Sesión
+    body
+        nav
+            ul
+                li
+                    a(href="/") Inicio
+                if user
+                    li
+                        a(href="/alumnos") Alumnos
+                    li
+                        a(href="/asignaturas") Asignaturas
+                    li
+                        a(href="/logout") Cerrar sesión
+                else
+                    li
+                        a(href="/login") Iniciar Sesión
 
- block content
+        block content
 
- footer
- p Luis Manuel (2023)
+        footer
+            p Luis Manuel (2023)
