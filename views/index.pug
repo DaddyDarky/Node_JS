@@ -1,0 +1,25 @@
+html
+    head
+    title= pageTitle
+    body
+        nav
+            ul
+                li
+                    a(href="/") Inicio
+                if user
+                    li
+                        a(href="/alumnos") Alumnos
+                    li
+                        a(href="/asignaturas") Asignaturas
+                    li
+                        a(href="/logout") Cerrar sesión
+                else
+                    li
+                        a(href="/login") Iniciar Sesión
+
+            h1
+                Bienvenido a Gestión Académica
+            p seleccione una opción de la lista para continuar
+
+            footer  
+                p Luis Manuel  (2023)

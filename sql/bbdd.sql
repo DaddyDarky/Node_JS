@@ -15,11 +15,17 @@ CREATE TABLE users (
     password VARCHAR(336) NOT NULL
 );
 
+INSERT INTO `users`(`username`,`password`)
+    VALUES ('Luis','Daddy74');
+
+
 CREATE TABLE alumno (
     alumno_id INT PRIMARY KEY,
     user_id INT,
     nombre VARCHAR(30) NOT NULL,
     apellido VARCHAR(30) NOT NULL,
+    mail VARCHAR(50) NOT NULL,
+    telefono VARCHAR(8),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
@@ -28,6 +34,7 @@ CREATE TABLE profesor (
     user_id INT,
     nombre VARCHAR(30) NOT NULL,
     apellido VARCHAR(30) NOT NULL,
+    mail VARCHAR(50) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
