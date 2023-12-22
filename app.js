@@ -41,7 +41,23 @@ app.set('views',path.join(__dirname,'views'));
 //Configuracion del middleware
 app.use(bodyParser.urlencoded({extended : true}));
 
-app.use((req,res,next)=>{
+
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    if (!req.session.user && !req.path.match("/login"))
+        res.redirect("/login")
+    else
+        next();
+    });
+    
+    // RUTAS
+    // ruta por defecto
+    
+    app.get('/', (req, res) => {
+    res.render('index');
+});
+/**
+ * app.use((req,res,next)=>{
     res.locals.user = req.session.user || null;
     if (req.session.user===undefined && !req.path.startsWith("/login"))
         res.redirect("/login");
@@ -53,13 +69,79 @@ app.use((req,res,next)=>{
 app.get('/',(req,res)=>{
     res.render('index',{user: req.session.user});
 });
+*/
+
+
+// ruta por defecto
+app.get('/', (req, res) => {
+    res.render('index');
+    });
+
+    // ruta para el login
+    app.get('/login', (req, res) => {
+    res.render('login');
+    });
+
+    app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    // Verificación de credenciales en MySQL
+    
+    const query = 'SELECT * FROM users WHERE username = ? AND password =?';
+    db.query(query, [username, password], (err, results) => {
+    if (err) {
+        console.error('Error al verificar las credenciales:', err);
+    res.render("error", {mensaje: "Credenciales no válidas."});
+    } else {
+        if (results.length > 0) {
+            req.session.user = username;
+            res.redirect('/');
+        } else {
+            res.redirect('/login');
+        }
+    }
+    });
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+    if (err) res.render("error", {mensaje: err});
+    else res.redirect('/login');
+    });
+});
 
 
 app.get('/login',(req, res)=>{
      res.render('login');
  });
 
-// Rutas
+
+ app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    // Verificación de credenciales en MySQL
+    const query = 'SELECT * FROM users WHERE username = ? AND password =';
+    db.query(query, [username, password], (err, results) => {
+    if (err) {
+        console.error('Error al verificar las credenciales:', err);
+    res.render("error", {mensaje: "Credenciales no válidas."});
+    } else {
+        if (results.length > 0) {
+    req.session.user = username;
+    res.redirect('/')
+    } else {
+    res.redirect('/login');
+    }
+    }
+    });
+ });
+
+
+
+
+
+
+
+// Rutas verbo accion
 app.get('/alumnos', (req, res) => {
     // Obtener todos los alumnos de la base de datos
     db.query('SELECT * FROM alumno', (err, result) => {
