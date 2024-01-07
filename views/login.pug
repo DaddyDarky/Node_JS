@@ -1,12 +1,12 @@
-extend layout 
+extends layout
 
-block content   
-        h1 Iniciar sesion 
-        form(action='/login', method='post')
-        label(for='username') Usuario:
-        input(type='text', id='username', name='username', required)
-        br
-        label(for='password') Contraseña:
-        input(type='password', id='password', name='password',required)
-        br
-        button(type='submit') Iniciar sesion
+block content
+  h1 Iniciar sesión
+  form(action='/login', method='post')
+    label(for='username') Usuario:
+    input(type='text', id='username', name='username', required)
+    br
+    label(for='password') Contraseña:
+    input(type='password', id='password', name='password', required)
+    br
+    button(type='submit') Iniciar sesión

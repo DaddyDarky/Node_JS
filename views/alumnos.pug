@@ -8,6 +8,7 @@ block content
                 th ID 
                 th Nombre 
                 th Apellidos 
+                th Telefono
                 th Acciones 
             thbody 
                 each alumno in alumnos 
@@ -15,6 +16,7 @@ block content
                     td=alumno.id 
                     td=alumno.nombre 
                     td=alumno.apellido 
+                    td=alumuno.telefono
                     td 
                         a(href=`/alumnos-edit/${alumno.id}`) Editar span | a(href=`/alumnos-delete/${alumno.id}`) Eliminar 
 p
